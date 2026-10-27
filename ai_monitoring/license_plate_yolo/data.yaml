@@ -1,0 +1,6 @@
+path: C:/Users/doblo/Downloads/project/project/ai_monitoring/license_plate_yolo
+train: images/train
+val: images/val
+
+names:
+  0: license_plate
