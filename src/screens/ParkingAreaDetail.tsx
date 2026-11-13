@@ -60,60 +60,78 @@ export function ParkingAreaDetail({ area, onBack }: ParkingAreaDetailProps) {
       </header>
 
       <div className="px-5 py-4 pb-28 space-y-5">
-        {/* Camera view */}
-        <div className="card overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
-            <div className="flex items-center gap-2">
-              <Camera size={18} className="text-primary-600" />
-              <span className="font-semibold text-gray-900 text-sm">Live Camera Feed</span>
-            </div>
-            <button
-              onClick={() => setCameraActive(!cameraActive)}
-              className={`text-xs font-semibold px-3 py-1.5 rounded-full transition-all ${
-                cameraActive ? 'bg-primary-100 text-primary-700' : 'bg-gray-100 text-gray-500'
-              }`}
-            >
-              {cameraActive ? 'On' : 'Off'}
-            </button>
-          </div>
- <div className="relative aspect-video bg-gray-900 overflow-hidden">
-  {cameraActive ? (
-    <div className="relative w-full h-full bg-black overflow-hidden">
 
-      <iframe
-  src="http://localhost:8889/tapo-yolo?autoplay=true&muted=true&controls=true"
-  className="absolute inset-0 w-full h-full border-0"
-  allow="autoplay; fullscreen"
-  title="Tapo C310 Live Camera"
-/>
-
-      {/* LIVE indicator */}
-      <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5 bg-black/60 px-2 py-1 rounded-md">
-        <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-        <span className="text-xs font-bold text-white">
-          LIVE
-        </span>
-      </div>
-
+{/* Camera view with parking guidance overlay */}
+<div className="card overflow-hidden">
+  <div className="flex items-center justify-between border-b border-gray-100 px-4 py-3">
+    <div className="flex items-center gap-2">
+      <Camera size={18} className="text-primary-600" />
+      <span className="text-sm font-semibold text-gray-900">
+        Live Camera Feed
+      </span>
     </div>
-  ) : (
-    <div className="text-center">
-      <VideoOff
-        size={32}
-        className="text-gray-600 mx-auto mb-2"
-      />
 
-      <p className="text-gray-500 text-xs">
-        Camera feed is off
-      </p>
+    <button
+      type="button"
+      onClick={() => setCameraActive((active) => !active)}
+      className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-all ${
+        cameraActive
+          ? 'bg-primary-100 text-primary-700'
+          : 'bg-gray-100 text-gray-500'
+      }`}
+    >
+      {cameraActive ? 'On' : 'Off'}
+    </button>
+  </div>
 
-      <p className="text-gray-600 text-[10px] mt-1">
-        Tap "On" to view live footage
-      </p>
-    </div>
-  )}
-</div>
+  <div className="relative aspect-video overflow-hidden bg-gray-900">
+    {cameraActive ? (
+      <div className="absolute inset-0 overflow-hidden bg-black">
+        <iframe
+          src="http://localhost:8889/tapo-yolo?autoplay=true&muted=true&controls=true"
+          className="absolute inset-0 h-full w-full border-0"
+          allow="autoplay; fullscreen"
+          title="Tapo C310 Live Camera"
+        />
+
+        {/* Live indicator */}
+        <div className="absolute left-3 top-3 z-20 flex items-center gap-1.5 rounded-md bg-black/60 px-2 py-1">
+          <span className="h-2 w-2 animate-pulse rounded-full bg-red-500" />
+          <span className="text-xs font-bold text-white">LIVE</span>
         </div>
+
+        {/* Parking guide legend */}
+        <div className="absolute bottom-3 left-3 z-20 flex flex-wrap gap-3 rounded-lg bg-black/70 px-3 py-2 text-xs font-semibold text-white">
+          <span className="flex items-center gap-1.5">
+            <span className="h-3 w-3 rounded border-2 border-green-400 bg-green-400/20" />
+            Available
+          </span>
+
+          <span className="flex items-center gap-1.5">
+            <span className="h-3 w-3 rounded border-2 border-red-400 bg-red-400/20" />
+            Occupied
+          </span>
+        </div>
+
+        {/* Overlay setup placeholder */}
+        <div className="absolute bottom-3 right-3 z-20 rounded-lg bg-black/70 px-3 py-2 text-xs text-white">
+          Slot overlay setup
+        </div>
+      </div>
+    ) : (
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+        <VideoOff size={32} className="mx-auto mb-2 text-gray-600" />
+
+        <p className="text-xs text-gray-500">Camera feed is off</p>
+
+        <p className="mt-1 text-[10px] text-gray-600">
+          Tap "On" to view live footage
+        </p>
+      </div>
+    )}
+  </div>
+</div>
+
 
         {/* Stats */}
         <div className="card p-4">

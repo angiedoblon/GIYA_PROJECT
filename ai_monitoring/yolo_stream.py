@@ -33,9 +33,8 @@ CONFIDENCE = 0.20
 YOLO_IMAGE_SIZE = 416
 
 FFMPEG = (
-    r"C:\Users\doblo\AppData\Local\Microsoft\WinGet"
-    r"\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe"
-    r"\ffmpeg-9.0.2-full_build\bin\ffmpeg.exe"
+    r"C:\Users\Mark Jenesio Godes\AppData\Local\Microsoft\WinGet\Links"
+    r"\ffmpeg.exe"
 )
 
 
